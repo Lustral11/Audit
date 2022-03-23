@@ -29,6 +29,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
+using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity.Blazor.Server;
@@ -92,6 +93,13 @@ public class SampleBlazorModule : AbpModule
         ConfigureBlazorise(context);
         ConfigureRouter(context);
         ConfigureMenu(context);
+
+        Configure<AbpAuditingOptions>(options =>
+        {
+            options.IsEnabled = true;
+            options.EntityHistorySelectors.AddAllEntities();
+        });
+
     }
 
     private void ConfigureUrls(IConfiguration configuration)
