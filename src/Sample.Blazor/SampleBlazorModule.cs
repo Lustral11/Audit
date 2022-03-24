@@ -93,13 +93,12 @@ public class SampleBlazorModule : AbpModule
         ConfigureBlazorise(context);
         ConfigureRouter(context);
         ConfigureMenu(context);
-
+        
         Configure<AbpAuditingOptions>(options =>
         {
             options.IsEnabled = true;
             options.EntityHistorySelectors.AddAllEntities();
         });
-
     }
 
     private void ConfigureUrls(IConfiguration configuration)
@@ -268,7 +267,6 @@ public class SampleBlazorModule : AbpModule
         {
             app.UseMultiTenancy();
         }
-
         app.UseUnitOfWork();
         app.UseIdentityServer();
         app.UseAuthorization();
@@ -277,6 +275,7 @@ public class SampleBlazorModule : AbpModule
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample API");
         });
+        app.UseAuditing();
         app.UseConfiguredEndpoints();
     }
 }
